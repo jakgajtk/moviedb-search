@@ -1,0 +1,26 @@
+{
+  "name": "perform-interview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "npm install && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakgajtk/perform-interview-task.git"
+  },
+  "author": "Jakub Gajtkowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakgajtk/perform-interview-task/issues"
+  },
+  "homepage": "https://github.com/jakgajtk/perform-interview-task#readme",
+  "dependencies": {
+    "themoviedb-javascript-library": "^1.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^3.4.1"
+  }
+}
