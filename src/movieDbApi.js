@@ -1,19 +1,19 @@
-const config = require('./config.js').config();
+const config = require('./config.js').config;
 const movieDb = require('../node_modules/themoviedb-javascript-library/themoviedb.min.js');
+const appendList = require('./dataRender.js').appendList;
 
-console.log(config);
 movieDb.common.api_key = config.apiKey;
 
 var movieDbApi = {
     successCallback: function(data) {
-        console.log("Success callback: " + data);
+        appendList(JSON.parse(data));
     },
     errorCallback: function(data) {
-        console.log("Error callback: " + data);
+        console.log('Error callback: ', data);
     },
     getMovie: function(searchText) {
         movieDb.search.getMovie(
-            {"query":"Fight%20Club"},
+            {'query': searchText},
             movieDbApi.successCallback,
             movieDbApi.errorCallback
         )

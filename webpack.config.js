@@ -4,6 +4,7 @@ module.exports = {
   target: 'web',
   entry: ['./src/config.js', 
   './src/movieDbApi.js',
+  './src/dataRender',
   './node_modules/themoviedb-javascript-library/themoviedb.min.js',
   './src/index.js'],
   output: {

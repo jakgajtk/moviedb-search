@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Client Engineer coding challenge</title>
+    <title>Simple movieDB search</title>
     <script src="../node_modules/themoviedb-javascript-library/themoviedb.min.js"></script>
     <script src="config.js"></script>
     <script src="movieDbApi.js"></script>
@@ -10,8 +10,15 @@
     <h2>
       Find your favourite movies!
     </h2>
-    <form>
-      <input type="text" placeholder="Type"/>
+    <form id="search-movie-form">
+      <input type="text" id="search-text" placeholder="Search movies"/>
+      <button type="submit">
+        Search
+      </button>
+    </form>
+    <div id="result-info">
+    </div>
+    <div id="result-list">
     </div>
   </body>
 </html>

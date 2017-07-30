@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,33 +68,32 @@
 /***/ (function(module, exports) {
 
 var config = {
-    apiKey : '2e75df9a37110e4174bd86bef8018142'
+    apiKey: '2e75df9a37110e4174bd86bef8018142',
+    posterPath: 'http://image.tmdb.org/t/p/w92'
 };
 
-exports.config = function() {
-    return config;
-}
+exports.config = config;
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const config = __webpack_require__(0).config();
+const config = __webpack_require__(0).config;
 const movieDb = __webpack_require__(2);
+const appendList = __webpack_require__(3).appendList;
 
-console.log(config);
 movieDb.common.api_key = config.apiKey;
 
 var movieDbApi = {
     successCallback: function(data) {
-        console.log("Success callback: " + data);
+        appendList(JSON.parse(data));
     },
     errorCallback: function(data) {
-        console.log("Error callback: " + data);
+        console.log('Error callback: ', data);
     },
     getMovie: function(searchText) {
         movieDb.search.getMovie(
-            {"query":"Fight%20Club"},
+            {'query': searchText},
             movieDbApi.successCallback,
             movieDbApi.errorCallback
         )
@@ -113,19 +112,68 @@ var theMovieDb={};theMovieDb.common={api_key:"",base_uri:"http://api.themoviedb.
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(0);
-__webpack_require__(1);
-__webpack_require__(2);
-module.exports = __webpack_require__(4);
+const config = __webpack_require__(0).config;
 
+function appendDataToView(data) {
+    clearList();
+    createSummaryText(data)
+
+    data.results.forEach(function (value) {
+        let element = document.createElement('p');
+        let text = document.createTextNode(value.original_title);
+        let icon =  new Image(120, 120);
+        if (value.poster_path) {
+            icon.src = config.posterPath + value.poster_path;
+            element.appendChild(icon);
+        }
+        element.appendChild(text);
+        document.getElementById('result-list').appendChild(element);
+    })
+};
+
+function createSummaryText(data) {
+    let summary = document.createElement('div');
+    let text = document.createTextNode('Showing ' + data.results.length + ' of total ' + data.total_results);
+    summary.appendChild(text);
+    document.getElementById('result-info').appendChild(summary);
+}
+
+function clearList() {
+    let list = document.getElementById('result-list');
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+
+    let summary = document.getElementById('result-info');
+    summary.removeChild(summary.firstChild);
+};
+
+exports.appendList = appendDataToView;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(0);
+__webpack_require__(1);
+__webpack_require__(3);
+__webpack_require__(2);
+module.exports = __webpack_require__(5);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
 let movieDbApi = __webpack_require__(1).movieDbApi;
 
-movieDbApi.getMovie();
+(function () {
+  document.getElementById('search-movie-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let searchText = document.getElementById('search-text').value;
+    movieDbApi.getMovie(searchText);
+  })
+}())
 
 /***/ })
 /******/ ]);
