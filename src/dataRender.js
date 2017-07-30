@@ -6,16 +6,41 @@ function appendDataToView(data) {
 
     data.results.forEach(function (value) {
         let element = document.createElement('p');
-        let text = document.createTextNode(value.original_title);
-        let icon =  new Image(120, 120);
-        if (value.poster_path) {
-            icon.src = config.posterPath + value.poster_path;
-            element.appendChild(icon);
-        }
-        element.appendChild(text);
+        element.className = 'movie';
+        createIcon(element, value);
+        createTitle(element, value);
+        createGradeInfo(element, value);
+        element.addEventListener('click', function() {
+            window.open(config.moviePath + value.id, '_blank');
+        });
+
         document.getElementById('result-list').appendChild(element);
     })
 };
+
+function createTitle(element, movie) {  
+    let title = document.createElement('div');
+    title.className = 'movie-title';
+    let text = document.createTextNode(movie.original_title);
+    title.appendChild(text);
+    element.appendChild(title);
+}
+
+function createGradeInfo(element, movie) {  
+    let grade = document.createElement('div');
+    grade.className = 'movie-grade';
+    let text = document.createTextNode(movie.vote_average + '/10 (' + movie.vote_count + ' votes in total)');
+    grade.appendChild(text);
+    element.appendChild(grade);
+}
+
+function createIcon(element, movie) {
+    let icon = new Image(120, 120);
+    if (movie.poster_path) {
+        icon.src = config.posterPath + movie.poster_path;
+    }
+    element.appendChild(icon);
+}
 
 function createSummaryText(data) {
     let summary = document.createElement('div');
@@ -34,4 +59,21 @@ function clearList() {
     summary.removeChild(summary.firstChild);
 };
 
+function showError(errorObj) {
+    let error = document.createElement('div');
+    let text = document.createTextNode('Error(s) occurred during search.');
+    error.appendChild(text);
+    document.getElementById('result-info').appendChild(error);
+
+    errorObj.errors.forEach(function (value) {
+        let errorElement = document.createElement('p');
+        let text = document.createTextNode(value);
+        errorElement.className += 'text-danger';
+
+        errorElement.appendChild(text);
+        document.getElementById('result-list').appendChild(errorElement);
+    });
+};
+
 exports.appendList = appendDataToView;
+exports.appendError = showError;

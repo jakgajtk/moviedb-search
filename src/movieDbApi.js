@@ -1,6 +1,7 @@
 const config = require('./config.js').config;
 const movieDb = require('../node_modules/themoviedb-javascript-library/themoviedb.min.js');
 const appendList = require('./dataRender.js').appendList;
+const appendError = require('./dataRender.js').appendError;
 
 movieDb.common.api_key = config.apiKey;
 
@@ -9,7 +10,7 @@ var movieDbApi = {
         appendList(JSON.parse(data));
     },
     errorCallback: function(data) {
-        console.log('Error callback: ', data);
+        appendError(JSON.parse(data));
     },
     getMovie: function(searchText) {
         movieDb.search.getMovie(

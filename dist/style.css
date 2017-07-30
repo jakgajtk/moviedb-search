@@ -1,0 +1,43 @@
+.text-danger {
+    font-color: #ff0033;
+}
+
+#result-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#result-info {
+    text-align: center;
+}
+
+.search-bar {
+    text-align: center;
+}
+
+.movie {
+    margin-right: 15px;
+    display: inline-block;
+    background: #eee;
+    border: 1px solid #ddd;
+    width: 450px;
+    cursor: pointer;
+}
+
+.movie-title {
+    position: absolute;
+    display: inline-block;
+    height: 30px;
+    margin: 15px;
+    vertical-align: top;
+    font-size: 21px;
+}
+
+.movie-grade {
+    display: inline-block;
+    height: 30px;
+    margin: 15px;
+    vertical-align: bottom;
+    font-size: 14px; 
+}
