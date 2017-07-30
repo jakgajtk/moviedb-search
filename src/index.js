@@ -1,9 +1,3 @@
-function component() {
-  var element = document.createElement('div');
+let movieDbApi = require('./movieDbApi.js').movieDbApi;
 
-  element.innerHTML = 'Hello webpack';
-
-  return element;
-}
-
-document.body.appendChild(component());
+movieDbApi.getMovie();

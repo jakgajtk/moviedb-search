@@ -21,6 +21,7 @@
     "themoviedb-javascript-library": "^1.0.0"
   },
   "devDependencies": {
-    "webpack": "^3.4.1"
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.6.1"
   }
 }
